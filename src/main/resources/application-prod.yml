@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://59.212.43.52:3306/yuntu-zhanting?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: admin
+    password: admin123
+    hikari:
+      connection-timeout: 20000
+      minimum-idle: 1
+      maximum-pool-size: 5
+      idle-timeout: 10000
+      auto-commit: true
