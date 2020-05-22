@@ -1,12 +1,26 @@
 spring:
   datasource:
-    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/portal_bd?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
-    username: root
-    password: root
-    hikari:
-      connection-timeout: 20000
-      minimum-idle: 1
-      maximum-pool-size: 5
-      idle-timeout: 10000
-      auto-commit: true
+    url: jdbc:postgresql://10.192.72.79:5432/wecity
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: post@123
+  jpa:
+    database: postgresql
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+graphql:
+      servlet:
+               mapping: /graphql
+               enabled: true
+               corsEnabled: true
+graphiql:
+    mapping: /graphiql
+    endpoint: /graphql
+    enabled: true
+    pageTitle: GraphiQL

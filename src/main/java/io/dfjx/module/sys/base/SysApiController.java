@@ -58,7 +58,7 @@ public class SysApiController {
 	 * @param response
 	 * @return
 	 */
-	//@RequestMapping("query/{tableName}")
+	@RequestMapping("query/{tableName}")
 	public R query(@PathVariable String tableName, HttpServletRequest request, HttpServletResponse response){
 		String where = mstr(request, "w", "");
 		String column = mstr(request, "s", "");
