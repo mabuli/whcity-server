@@ -2,21 +2,31 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!--描述这个POM文件是遵从哪个版本的项目描述符-->
     <modelVersion>4.0.0</modelVersion>
+    <!--项目或者组织的唯一标志，并且配置时生成的路径也是由此生成-->
     <groupId>io.dfjx</groupId>
+    <!-- artifactId: 项目的通用名称 -->
     <artifactId>whcity-server</artifactId>
+    <!--项目的版本-->
     <version>1.0.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <!--打包的机制-->
+    <packaging>jar</packaging>
+    <!-- 项目的名称， Maven 产生的文档用 -->
     <description>whcity大屏</description>
 
+    <!--springboot项目的父级依赖-->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.1.3.RELEASE</version>
     </parent>
 
+    <!--依赖包的版本信息-->
     <properties>
+        <!--jdk版本-->
         <java.version>1.8</java.version>
+        <!--mybatisplus版本-->
         <mybatisplus.version>3.0.7.1</mybatisplus.version>
         <mysql.version>5.1.38</mysql.version>
         <commons.lang.version>2.6</commons.lang.version>
@@ -28,19 +38,23 @@
         <quartz.version>2.3.2</quartz.version>
         <hutool.version>4.6.5</hutool.version>
         <skipTests>true</skipTests>
+        <lombok.version>1.18.4</lombok.version>
     </properties>
 
     <dependencies>
+        <!--Spring Boot的核心启动器web的场景依赖配置-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <exclusions>
+                <!--配置tomcat启动器-->
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-tomcat</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
+        <!--servlet-api 是提供编写servlet时要用到HttpServletRequest和HttpServletResponse 等对象的，但是tomcat里也有，运行时要用tomcat自己的，所以引用maven包时，要这样写-->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -48,22 +62,32 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+            <version>8.5.34</version>
+        </dependency>
+        <!--spring的aop依赖-->
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
+        <!--springboot的监控模块依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+        <!--包含支持缓存Cache（ehcache）、JCA、JMX、 邮件服务（Java Mail、COS Mail）、任务计划Scheduling（Timer、Quartz）方面的类-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
         </dependency>
+        <!--使用非.yml排脂文件所需依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
+        <!--mybatis-plus-boot-starter代码生成器的依赖配置-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
@@ -75,16 +99,23 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!--mybatis-plus代码生成器的依赖配置-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus</artifactId>
             <version>${mybatisplus.version}</version>
         </dependency>
-        <!-- mysql -->
+        <!-- mysql 数据库驱动-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.version}</version>
+        </dependency>
+        <!-- postgresql 数据库驱动-->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <!--<dependency>
             <groupId>org.quartz-scheduler</groupId>
@@ -97,13 +128,13 @@
                 </exclusion>
             </exclusions>
         </dependency>-->
-        <!--hutool-->
+        <!--hutool Java工具类库-->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>${hutool.version}</version>
         </dependency>
-        <!-- commons -->
+        <!-- commons 类库-->
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
@@ -134,11 +165,13 @@
             <artifactId>commons-beanutils</artifactId>
             <version>${commons.beanutils.version}</version>
         </dependency>
+        <!--Lombok通过增加一些“处理程序”，可以让java变得简洁、快速。-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
         </dependency>
+        <!--用于对JSON格式的数据进行解析和打包-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
@@ -148,15 +181,10 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>1.3.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
+            <version>1.3.1</version>
         </dependency>
     </dependencies>
+    <!--项目不同环境的配置-->
     <profiles>
         <profile>
             <id>dev</id>
@@ -181,6 +209,7 @@
         </profile>
     </profiles>
 
+    <!--maven的相关配置-->
     <repositories>
         <repository>
             <id>public</id>
@@ -205,6 +234,7 @@
         </pluginRepository>
     </pluginRepositories>
 
+    <!--将springboot的应用程序打包成fat jar的插件-->
     <build>
         <plugins>
             <plugin>
